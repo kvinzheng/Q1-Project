@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Traffic Accident</title>
+    <link rel = "stylesheet" href = "application.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  </head>
+
+  <body>
+    <nav class = "#0d47a1 blue darken-4">
+      <div class="nav-wrapper container">
+        <a href ="" class="brands-logo" >Application Homepage</a>
+        <a href ="" class="right" >Google Map</a>
+      </div>
+    </nav>
+
+    <main class == "container">
+
+      <div class = "row">
+        <div name="left-hand side" class="col s6">
+          <form action="" method="get" name = "hello">
+            <div>
+              <label for="selection-time">Please select the time of the day</label>
+              <select id="selection-time" name="time">
+                <option value = ''></option>
+                <option value = 1> 1:00 a.m. </option>
+                <option value = 2> 2:00 a.m. </option>
+                <option value = 3> 3:00 a.m. </option>
+                <option value = 4> 4:00 a.m. </option>
+                <option value = 5> 5:00 a.m. </option>
+                <option value = 6> 6:00 a.m. </option>
+                <option value = 7> 7:00 a.m. </option>
+                <option value = 8> 8:00 a.m. </option>
+                <option value = 9> 9:00 a.m. </option>
+                <option value = 10> 10:00 a.m. </option>
+                <option value = 11> 11:00 a.m. </option>
+                <option value = 12> 12:00 p.m. </option>
+                <option value = 13> 1:00 p.m. </option>
+                <option value = 14> 2:00 p.m. </option>
+                <option value = 15> 3:00 p.m. </option>
+                <option value = 16> 4:00 p.m. </option>
+                <option value = 17> 5:00 p.m. </option>
+                <option value = 18> 6:00 p.m. </option>
+                <option value = 19> 7:00 p.m. </option>
+                <option value = 20> 8:00 p.m. </option>
+                <option value = 21> 9:00 p.m. </option>
+                <option value = 22> 10:00 p.m. </option>
+                <option value = 23> 11:00 p.m. </option>
+                <option value = 24> 12:00 a.m. </option>
+              </select>
+            </div>
+            <br>
+            <div >
+              <label for="selection-day">Please select the day of the week</label>
+              <select id="selection-day" name="week">
+                <option value=""></option>
+                <option value="Monday"> Monday </option>
+                <option value="Tueday"> Tuesday </option>
+                <option value="Wednesday"> Wednesday </option>
+                <option value="Thursday"> Thursday </option>
+                <option value="Friday"> Friday </option>
+                <option value="Saturday"> Saturday </option>
+                <option value="Sunday"> Sunday </option>
+              </select>
+            </div>
+            <br>
+            <div >
+              <label for="selection-district">Please select the district in San Francisco</label>
+              <select id="selection-district" name="district">
+                <option value = ""></option>
+                <option value = "BAYVIEW">BAYVIEW</option>
+                <option value = "CENTRAL">CENTRAL</option>
+                <option value = "INGLESIDE">INGLESIDE</option>
+                <option value = "MISSION">MISSION</option>
+                <option value = "NORTHERN">NORTHERN</option>
+                <option value = "PARK">PARK</option>
+                <option value = "RICHMOND">RICHMOND</option>
+                <option value = "SOUTHERN">SOUTHERN</option>
+                <option value = "TARAVAL">TARAVAL</option>
+                <option value = "TENDERLOIN">TENDERLOIN</option>
+              </select>
+            </div>
+            <br>
+            <div >
+              <button id="submit" type="submit" name="submitbutton" value="Submit">Click Here To Look At The Danger Zone!</button>
+            </div>
+          </form>
+      </div>
+
+      <div name="right-hand side" class="col s6">
+        <div>
+          <p><font size = "5"> Use to map to inspect the areas that have incidents occur </font></p>
+        </div>
+        <div id = "map-canvas"></div>
+
+      </div>
+
+    </main>
+
+  </div>
+
+
+    <!-- <script>
+    $(document).ready(function() {
+      $('select').material_select();
+    });
+    </script> -->
+    <!--this is google source-->
+  
+
+  <!--this is CDN also?-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+
+    <script type="text/javascript" src = "application.js"></script>
+  </body>
+
+</html>
