@@ -24,40 +24,40 @@
             <div>
               <label for="selection-time">Please select the time of the day</label>
               <select id="selection-time" name="time">
-                <option value = ''></option>
-                <option value = 1> 1:00 a.m. </option>
-                <option value = 2> 2:00 a.m. </option>
-                <option value = 3> 3:00 a.m. </option>
-                <option value = 4> 4:00 a.m. </option>
-                <option value = 5> 5:00 a.m. </option>
-                <option value = 6> 6:00 a.m. </option>
-                <option value = 7> 7:00 a.m. </option>
-                <option value = 8> 8:00 a.m. </option>
-                <option value = 9> 9:00 a.m. </option>
-                <option value = 10> 10:00 a.m. </option>
-                <option value = 11> 11:00 a.m. </option>
-                <option value = 12> 12:00 p.m. </option>
-                <option value = 13> 1:00 p.m. </option>
-                <option value = 14> 2:00 p.m. </option>
-                <option value = 15> 3:00 p.m. </option>
-                <option value = 16> 4:00 p.m. </option>
-                <option value = 17> 5:00 p.m. </option>
-                <option value = 18> 6:00 p.m. </option>
-                <option value = 19> 7:00 p.m. </option>
-                <option value = 20> 8:00 p.m. </option>
-                <option value = 21> 9:00 p.m. </option>
-                <option value = 22> 10:00 p.m. </option>
-                <option value = 23> 11:00 p.m. </option>
-                <option value = 24> 12:00 a.m. </option>
+                <option value="" disabled selected>Choose your option</option>
+                <option value = '01'> 1:00 a.m. </option>
+                <option value = '02'> 2:00 a.m. </option>
+                <option value = '03'> 3:00 a.m. </option>
+                <option value = '04'> 4:00 a.m. </option>
+                <option value = '05'> 5:00 a.m. </option>
+                <option value = '06'> 6:00 a.m. </option>
+                <option value = '07'> 7:00 a.m. </option>
+                <option value = '08'> 8:00 a.m. </option>
+                <option value = '09'> 9:00 a.m. </option>
+                <option value = '10'> 10:00 a.m. </option>
+                <option value = '11'> 11:00 a.m. </option>
+                <option value = '12'> 12:00 p.m. </option>
+                <option value = '13'> 1:00 p.m. </option>
+                <option value = '14'> 2:00 p.m. </option>
+                <option value = '15'> 3:00 p.m. </option>
+                <option value = '16'> 4:00 p.m. </option>
+                <option value = '17'> 5:00 p.m. </option>
+                <option value = '18'> 6:00 p.m. </option>
+                <option value = '19'> 7:00 p.m. </option>
+                <option value = '20'> 8:00 p.m. </option>
+                <option value = '21'> 9:00 p.m. </option>
+                <option value = '22'> 10:00 p.m. </option>
+                <option value = '23'> 11:00 p.m. </option>
+                <option value = '00'> 12:00 a.m. </option>
               </select>
             </div>
             <br>
             <div >
               <label for="selection-day">Please select the day of the week</label>
               <select id="selection-day" name="week">
-                <option value=""></option>
+                <option value="" disabled selected>Choose your option</option>
                 <option value="Monday"> Monday </option>
-                <option value="Tueday"> Tuesday </option>
+                <option value="Tuesday"> Tuesday </option>
                 <option value="Wednesday"> Wednesday </option>
                 <option value="Thursday"> Thursday </option>
                 <option value="Friday"> Friday </option>
@@ -69,7 +69,7 @@
             <div >
               <label for="selection-district">Please select the district in San Francisco</label>
               <select id="selection-district" name="district">
-                <option value = ""></option>
+                <option value="" disabled selected>Choose your option</option>
                 <option value = "BAYVIEW">BAYVIEW</option>
                 <option value = "CENTRAL">CENTRAL</option>
                 <option value = "INGLESIDE">INGLESIDE</option>
@@ -94,25 +94,44 @@
           <p><font size = "5"> Use to map to inspect the areas that have incidents occur </font></p>
         </div>
         <div id = "map-canvas"></div>
-
       </div>
+    </div>
+    <div name = "display">
+      <div class="row">
+        <div class="col s6">After you click the "Click Here to Look At Danger Zone!" The total amount of incident that match the options that you select above is =====>  <span id = "numberofIncident" > </span>
+        </div>
 
-    </main>
+        <div class="col s6">Here is the google map picture</div>
+      </div>
+    </div>
+  </main>
 
-  </div>
 
 
-    <!-- <script>
-    $(document).ready(function() {
-      $('select').material_select();
-    });
-    </script> -->
+
     <!--this is google source-->
-  
+    <script type="text/javascript"> -->
+      localStorage.APIKey
+    </script>
 
-  <!--this is CDN also?-->
+
+  <script>
+    var GOOGLE_MAP_KEY = localStorage.APIKey;
+    function loadScript() {
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = 'https://maps.googleapis.com/maps/api/js?' +
+      'key=' + GOOGLE_MAP_KEY +'&callback=initMap'; //& needed
+      document.body.appendChild(script);
+    }
+    window.onload = loadScript;
+  </script>
+
+  <!-- <script async defer src = `https://maps.googleapis.com/maps/api/js?key=${APIKey}&callback=initMap`></script> -->
+  <!--this is CDN -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
     </script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
 
     <script type="text/javascript" src = "application.js"></script>

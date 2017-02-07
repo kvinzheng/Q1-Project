@@ -1,3 +1,9 @@
+let APIKey = localStorage.APIKey;
+console.log(APIKey);
+$(document).ready(function() {
+  $('select').material_select();
+});
+
 function initMap(){
   //map options
   var sanfrancisco = { lat: 37.773972, lng: -122.431297 };
@@ -7,30 +13,28 @@ function initMap(){
     zoom: 10,
     minZoom: 9,
     scrollwheel: true,
-    //zoomControlOptions:{
-      //position: google.maps.ControlPosition.TOP_RIGHT
+    zoomControlOptions:{
+      position: google.maps.ControlPosition.BOTTOM_LEFT
       //style: google.map.ZoomControlStyle.DEFAULT
-    //}
+    },
+    streetViewControlOptions: {
+        position: google.maps.ControlPosition.BOTTOM_LEFT
+    }
   };
 
   var element = document.getElementById('map-canvas');
   //map
   var map = new google.maps.Map(element, options);
-
-  // google.maps.event.addListener(map.gMap,'click', function(e){
-  //   alert('click');
-  //   console.log(e);
-  // });
   var marker = new google.maps.Marker({
     position: sanfrancisco,
     map: map
   });
 }
 
-var incidents
+// var incidents
 function getData(){
   let url = ('https://data.sfgov.org/resource/vv57-2fgy.json');
-  incidents = [];
+  let incidents = [];
   return fetch(url).then(function(respo){
     //console.log(respo.json());
     return respo.json();
@@ -39,15 +43,70 @@ function getData(){
     resJson.forEach(function(incident){
       incidents.push(incident);
     })
-    console.log(incidents.length);
+    //console.log(incidents.length);
+    //console.log(resJson);
+    return incidents;
   })
   .catch(function(err){
     console.log(err);
   });
 
 }
-getData();
-setTimeout(function(){
-  console.log(incidents)
-},1000);
-//console.log(incidents);
+
+
+let form = document.getElementsByTagName('form')[0];
+form.addEventListener("submit", function(e){
+  e.preventDefault();
+    getData().then(function(incidents) {
+    let timesArray = incidents.map(function(incident){
+      return incident.time.split(':')[0];
+    });
+
+    let dayArray = incidents.map(function(incident){
+      return incident.dayofweek
+    });
+
+    let districtArray = incidents.map(function(incident){
+      return incident.pddistrict
+    });
+
+    let time = document.getElementById("selection-time");
+    let dayofweek = document.getElementById("selection-day");
+    let sfdistrict = document.getElementById("selection-district");
+
+    let sum = 0;
+    timesArray.forEach(function(hour){
+      if(time.value === hour){
+        sum = sum + 1;
+      }
+    });
+    dayArray.forEach(function(day){
+      if(dayofweek.value === day){
+        sum = sum + 1;
+      }
+    });
+    districtArray.forEach(function(district){
+      if(sfdistrict.value === district){
+        sum = sum + 1;
+      }
+    });
+
+    let numberofincident = document.getElementById("numberofIncident");
+    numberofincident.innerText = sum;
+    //console.log(sum);
+      // I am filtering the array here.
+      let filterTime = incidents.filter(function(incident){
+        return incident.time.split(':')[0] === time.value;
+      });
+      let filterDay = incidents.filter(function(incident){
+        return incidents.dayofweek === dayofweek.value;
+      });
+
+      let filterDistrict =  incidents.filter(function(incident){
+        return incidents.pddistrict === sfdistrict.value;
+      });
+
+      console.log(filterTime);
+
+    });
+  });
