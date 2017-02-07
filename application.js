@@ -1,8 +1,16 @@
-let APIKey = localStorage.APIKey;
-console.log(APIKey);
+// let APIKey = localStorage.APIKey;
+// console.log(APIKey);
 $(document).ready(function() {
   $('select').material_select();
 });
+
+function loadScript() {
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = 'https://maps.googleapis.com/maps/api/js?' +
+      'key=' + GOOGLE_MAP_KEY +'&callback=initMap'; //& needed
+      document.body.appendChild(script);
+    }
 
 function initMap(){
   //map options

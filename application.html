@@ -86,6 +86,8 @@
             <div >
               <button id="submit" type="submit" name="submitbutton" value="Submit">Click Here To Look At The Danger Zone!</button>
             </div>
+
+
           </form>
       </div>
 
@@ -106,22 +108,15 @@
     </div>
   </main>
 
-
-
-
-    <!--this is google source-->
-    <script type="text/javascript"> -->
-      localStorage.APIKey
-    </script>
-
-
   <script>
     var GOOGLE_MAP_KEY = localStorage.APIKey;
     function loadScript() {
       var script = document.createElement('script');
       script.type = 'text/javascript';
       script.src = 'https://maps.googleapis.com/maps/api/js?' +
-      'key=' + GOOGLE_MAP_KEY +'&callback=initMap'; //& needed
+      'key=' + GOOGLE_MAP_KEY +'&callback=initMap';
+      script.async = true;
+      script.defer = true;
       document.body.appendChild(script);
     }
     window.onload = loadScript;
