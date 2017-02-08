@@ -61,18 +61,17 @@ form.addEventListener("submit", function(e){
       $('#myTableID').empty();
 
       //console.log(document.getElementById('myTableID'));
-      console.log(incidents);
-      let sum = 0;
+      // console.log(incidents);
+      // let sum = 0;
+      // incidents.forEach(function(incident){
+      //   if( (timeSelector.value === incident.time.split(':')[0]) && (dayofweekSelector.value === incident.dayofweek) && (sfdistrictSelector.value === incident.pddistrict) ){
+      //     sum = sum + 1;
+      //   }
+      // });
 
-      incidents.forEach(function(incident){
-        if( (timeSelector.value === incident.time.split(':')[0]) && (dayofweekSelector.value === incident.dayofweek) && (sfdistrictSelector.value === incident.pddistrict) ){
-          sum = sum + 1;
-        }
-      });
-
-      let numberofincident = document.getElementById("numberofIncident");
-      numberofincident.innerText = sum;
-      console.log(sum);
+      // let numberofincident = document.getElementById("numberofIncident");
+      // numberofincident.innerText = sum;
+      // console.log(sum);
       //
       // let allThreeFilter = incidents.filter(function(incident){
       //   //if time has no value
@@ -108,10 +107,16 @@ form.addEventListener("submit", function(e){
         });
       }
 
+      let numberofincident = document.getElementById("numberofIncident");
+      numberofincident.innerText = allThreeFilter.length;
+
       let topFiveAllThree = allThreeFilter.sort(function(a,b){
         return b.date - a.date;
         return Date.parse(b.date.replace(/'-'/g, '/') - Data.parse(a.date.replace(/'-'/g, '/')))
       }).slice(0,6)
+
+
+
 
       console.log(topFiveAllThree);
 

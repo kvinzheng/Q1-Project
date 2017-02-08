@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
 
-  <body>
+  <body class = "#e3f2fd blue lighten-5">
     <nav class = "#0d47a1 blue darken-4">
       <div class="nav-wrapper container">
         <a href ="" class="brands-logo" >Application Homepage</a>
@@ -21,10 +21,40 @@
       <div class = "row">
         <div name="left-hand side" class="col s6">
           <form action="" method="get" name = "hello">
+            <div class = "card-panel #82b1ff blue accent-1" >
+              <p style="font-size:120%"> Below are three option you can choose on to check the traffic incidents information </p>
+            </div>
+
+              <div class="left-hand side col s12 m8 l10 ">
+              <div class="card-panel #82b1ff blue accent-1">
+                <div class="row valign-wrapper">
+                  <div class="col s2">
+                    <img src="images/head.jpg" alt="" class=" circle responsive-img"> <!-- notice the "circle" class -->
+                  </div>
+                  <div class="col s10">
+                    <span class="black-text">
+                      Hello Uses! If you ever curious about where most incidents occurse the most in the San Francisco, when happen the most, and what time of the day happens the most. Please select the below options below
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+
             <div>
               <label for="selection-time">Please select the time of the day</label>
               <select id="selection-time" class="validate" name="time">
-                <option value="" >Choose your option</option>
+                <option value="" >Choose your time of the day</option>
                 <option value = '01'> 1:00 a.m. </option>
                 <option value = '02'> 2:00 a.m. </option>
                 <option value = '03'> 3:00 a.m. </option>
@@ -55,7 +85,7 @@
             <div >
               <label for="selection-day">Please select the day of the week</label>
               <select id="selection-day" name="week">
-                <option value="" >Choose your option</option>
+                <option value="" >Choose your day of the week</option>
                 <option value="Monday"> Monday </option>
                 <option value="Tuesday"> Tuesday </option>
                 <option value="Wednesday"> Wednesday </option>
@@ -69,7 +99,7 @@
             <div >
               <label for="selection-district">Please select the district in San Francisco</label>
               <select id="selection-district" name="district">
-                <option value="" >Choose your option</option>
+                <option value="" >Choose the district of San Francisco</option>
                 <option value = "BAYVIEW">BAYVIEW</option>
                 <option value = "CENTRAL">CENTRAL</option>
                 <option value = "INGLESIDE">INGLESIDE</option>
@@ -84,16 +114,16 @@
             </div>
             <br>
             <div >
-              <button id="submit" type="submit" name="submitbutton" value="Submit">Click Here To Look At The Danger Zone!</button>
+              <button id="submit" class="btn waves-effect waves-light grey" type="submit" name="submitbutton" value="Submit">Click Here To Look At The Danger Zone!</button>
             </div>
           </form>
           <!-- here is my table -->
           <table class = "striped">
             <thead>
               <tr>
-                <th data-field="time">Time</th>
-                <th data-field="day">Day</th>
-                <th data-field="date">Day</th>
+                <th data-field="time">Time (00-24)</th>
+                <th data-field="day">Day (M-S)</th>
+                <th data-field="date">Day (YYYY-MM-DD)</th>
                 <th data-field="address">Address</th>
                 <th data-field="district">District</th>
               </tr>
@@ -117,12 +147,25 @@
 
     <div name = "display">
       <div class="row">
-        <div class="col s6">After you click the "Click Here to Look At Danger Zone!" The total amount of incident that match the options that you select above is =====>  <span id = "numberofIncident" > </span>
-        </div>
+          <i class="medium material-icons">input</i>
+          <br>
+          <div class="col s6">After you click the "Click Here to Look At Danger Zone!" The total amount of incident that match the options that you select above is =====>  <span id = "numberofIncident" > </span>
+          </div>
 
-        <div class="col s6">Here is the google map picture</div>
+          <div class="col s6">Here is the google map picture</div>
       </div>
     </div>
+
+<!-- 
+    <div name = "display">
+     <div class="row">
+       <div class="col s6">After you click the "Click Here to Look At Danger Zone!" The total amount of incident that match the options that you select above is =====>  <span id = "numberofIncident" > </span>
+       </div>
+
+       <div class="col s6">Here is the google map picture</div>
+     </div>
+   </div> -->
+
 
   </main>
 
@@ -145,7 +188,6 @@
     <!-- this is through local file -->
    <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
    <script type="text/javascript" src="js/materialize.min.js"></script> -->
-
 
   <!-- this is CDN -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">

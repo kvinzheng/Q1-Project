@@ -11,11 +11,12 @@ body {
 }
 
 
-#map-canvas {
+
+/*#map-canvas {
   width: 85%;
   height: 600px;
   margin: 10px;
   border: 2px solid;
   border-radius: 25px;
   background-color: grey;
-}
+}*/
