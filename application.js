@@ -23,7 +23,6 @@ function initMap(){
     scrollwheel: true,
     zoomControlOptions:{
       position: google.maps.ControlPosition.BOTTOM_LEFT
-      //style: google.map.ZoomControlStyle.DEFAULT
     },
     streetViewControlOptions: {
         position: google.maps.ControlPosition.BOTTOM_LEFT
@@ -61,60 +60,95 @@ function getData(){
 
 }
 
-
 let form = document.getElementsByTagName('form')[0];
 form.addEventListener("submit", function(e){
   e.preventDefault();
-    getData().then(function(incidents) {
-    let timesArray = incidents.map(function(incident){
-      return incident.time.split(':')[0];
-    });
+  let timeSelector = document.getElementById("selection-time");
+  let dayofweekSelector = document.getElementById("selection-day");
+  let sfdistrictSelector = document.getElementById("selection-district");
+  // console.log(timeSelector.value, dayofweekSelector.value, sfdistrictSelector.value, "KJLKJLKJLKJL");
 
-    let dayArray = incidents.map(function(incident){
-      return incident.dayofweek
-    });
+  getData().then(function(incidents) {
+    console.log(incidents);
+    // let timesArray = [];
+    // let dayArray = [];
+    // let districtArray =[];
 
-    let districtArray = incidents.map(function(incident){
-      return incident.pddistrict
-    });
-
-    let time = document.getElementById("selection-time");
-    let dayofweek = document.getElementById("selection-day");
-    let sfdistrict = document.getElementById("selection-district");
+    // REFACTOR TO HAVE 1 MAP THROUGH incidents
+    // incidents.forEach(function(incident){
+    //  timesArray.push(incident.time.split(':')[0]);
+    //  dayArray.push(incident.dayofweek);
+    //  districtArray.push(incident.pddistrict);
+    // });
+    // console.log(timesArray);
+    // console.log(dayArray);
+    // console.log(districtArray);
 
     let sum = 0;
-    timesArray.forEach(function(hour){
-      if(time.value === hour){
-        sum = sum + 1;
-      }
-    });
-    dayArray.forEach(function(day){
-      if(dayofweek.value === day){
-        sum = sum + 1;
-      }
-    });
-    districtArray.forEach(function(district){
-      if(sfdistrict.value === district){
+    //i will fix this duplication
+    //ask matt about this one more time
+
+    incidents.forEach(function(incident){
+      if( (timeSelector.value === incident.time.split(':')[0]) && (dayofweekSelector.value === incident.dayofweek) && (sfdistrictSelector.value === incident.pddistrict) ){
         sum = sum + 1;
       }
     });
 
     let numberofincident = document.getElementById("numberofIncident");
     numberofincident.innerText = sum;
-    //console.log(sum);
-      // I am filtering the array here.
-      let filterTime = incidents.filter(function(incident){
-        return incident.time.split(':')[0] === time.value;
-      });
-      let filterDay = incidents.filter(function(incident){
-        return incidents.dayofweek === dayofweek.value;
-      });
+    console.log(sum);
 
-      let filterDistrict =  incidents.filter(function(incident){
-        return incidents.pddistrict === sfdistrict.value;
-      });
+    //I am sorting the top five object with selection of time with in the order of timestamp.
 
-      console.log(filterTime);
+    let allThreeFilter = incidents.filter(function(incident){
+      // console.log(incident.dayofweek);
+      // console.log(dayofweekSelector.value);
+      return ( incident.time.split(':')[0] === timeSelector.value ) &&
+             ( incident.dayofweek === dayofweekSelector.value ) &&
+             ( incident.pddistrict === sfdistrictSelector.value)
+    })
 
+    console.log(allThreeFilter);
+    let topFiveAllThree = allThreeFilter.sort(function(a,b){
+      return a.data - b.data;
+    }).slice(0,6)
+    console.log(topFiveAllThree);
+
+
+    appendTable()
     });
   });
+
+  //here is my append table
+
+  let selectClass = document.getElementsByClassName("select");
+  let tbody = document.querySelector("tbody");
+
+  function appendTable(){
+    let row = document.createElement("tr");
+    let time  = document.createElement("td");
+    let day = document.createElement("td");
+    let date = document.createElement("td");
+    let district = document.createElement("td");
+    let address = document.createElement("td");
+
+    time.innerText = incident.time.split(':')[0];
+    day.innerText = incident.dayofweek;
+    date.innerText = incident.date;
+    district.innerText = incident.pddistrict;
+    address.innerText = incident.address;
+
+    // var selectTime = document.getElementById("selection-time");
+    // var selectDay = document.getElementById("selection-day");
+    // var selectDistrict = document.getElementById("selection-district");
+
+    // var selectDay = this.getAttribute('name');
+    // var selectDistrict = this.getAttribute('name');
+    row.appendChild(time);
+    row.appendChild(day);
+    row.appendChild(date);
+    row.appendChild(district);
+    row.appendChild(address);
+    tbody.appendChild(row);
+    return tbody;
+  }
