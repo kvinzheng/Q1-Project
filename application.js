@@ -2,7 +2,7 @@ $(document).ready(function() {
   $('select').material_select();
 });
 
-
+var map;
 function initMap(){
   //map options
   var sanfrancisco = { lat: 37.773972, lng: -122.431297 };
@@ -19,14 +19,10 @@ function initMap(){
         position: google.maps.ControlPosition.BOTTOM_LEFT
     }
   };
-
   var element = document.getElementById('map-canvas');
   //map
-  var map = new google.maps.Map(element, options);
-  var marker = new google.maps.Marker({
-    position: sanfrancisco,
-    map: map
-  });
+  map = new google.maps.Map(element, options);
+
 }
 
 // var incidents
@@ -59,33 +55,7 @@ form.addEventListener("submit", function(e){
   getData()
     .then(function(incidents) {
       $('#myTableID').empty();
-
-      //console.log(document.getElementById('myTableID'));
-      // console.log(incidents);
-      // let sum = 0;
-      // incidents.forEach(function(incident){
-      //   if( (timeSelector.value === incident.time.split(':')[0]) && (dayofweekSelector.value === incident.dayofweek) && (sfdistrictSelector.value === incident.pddistrict) ){
-      //     sum = sum + 1;
-      //   }
-      // });
-
-      // let numberofincident = document.getElementById("numberofIncident");
-      // numberofincident.innerText = sum;
-      // console.log(sum);
-      //
-      // let allThreeFilter = incidents.filter(function(incident){
-      //   //if time has no value
-      //   return ( incident.time.split(':')[0] === timeSelector.value ) &&
-      //          ( incident.pddistrict === sfdistrictSelector.value)
-      //
-      //   return ( incident.dayofweek === dayofweekSelector.value ) &&
-      //          ( incident.pddistrict === sfdistrictSelector.value)
-      //   // else
-      //   return ( incident.time.split(':')[0] === timeSelector.value ) &&
-      //          ( incident.dayofweek === dayofweekSelector.value ) &&
-      //          ( incident.pddistrict === sfdistrictSelector.value)
-      // })
-
+      //here is my coordinates
       let allThreeFilter = incidents.slice();
 
       //if time value exist
@@ -110,20 +80,71 @@ form.addEventListener("submit", function(e){
       let numberofincident = document.getElementById("numberofIncident");
       numberofincident.innerText = allThreeFilter.length;
 
-      let topFiveAllThree = allThreeFilter.sort(function(a,b){
-        return b.date - a.date;
-        return Date.parse(b.date.replace(/'-'/g, '/') - Data.parse(a.date.replace(/'-'/g, '/')))
-      }).slice(0,6)
+      let AllThree = allThreeFilter.sort(function(a,b){
+        return Date.parse(b.date.replace(/'-'/g, '/') - Date.parse(a.date.replace(/'-'/g, '/')))
+      });
 
+      //console.log(AllThree);
+       //{ lat: 37.773972, lng: -122.431297 }
 
+      //here is an array of coordinate
+      let incidentCoordinates = AllThree.map(function(incident){
+      return { lat: parseFloat(incident.y) , lng: parseFloat(incident.x) };
+      });
+      console.log(incidentCoordinates);
+      initMap(incidentCoordinates);
 
-
-      console.log(topFiveAllThree);
-
-      appendTable(topFiveAllThree);
+      incidentCoordinates.forEach(function(coordinate){
+        var marker = new google.maps.Marker({
+          position: coordinate, //{lat: 388 ,lng:-122}
+          map: map
+        });
+      });
+      //append marker to my google map
+      // console.log(incidentCoordinates);
+      appendTable(AllThree);
     });
   });
 
+//   function mapMaker(result) {
+//     let contentString = `<div class="truckMap"><h4 class="truckHeader">${result.name}</h4><p class="truckText">Address: ${result.address}</p></div>`;
+//     let latLng = new google.maps.LatLng(result.lat, result.lng);
+//     let marker = new google.maps.Marker({
+//         position: latLng,
+//         animation: google.maps.Animation.DROP,
+//         icon: "imgs/foodtruckMarker.png"
+//     });
+//     let infowindow = new google.maps.InfoWindow({
+//         content: contentString,
+//         id: `${result.identifier}`
+//     });
+//     marker.addListener('click', function() {
+//         infowindow.open(map, marker);
+//     });
+//     markers.push(marker)
+//     marker.setMap(map);
+// }
+
+//   function addToCollapse(data) {
+//     let listItem = document.createElement('li');
+//     let body = document.createElement('div');
+//     let fullText = document.createElement('div');
+//     let street = document.createElement('p');
+//     let desc = document.createElement('p');
+//     let hours = document.createElement('p');
+//     body.setAttribute('class', "collapsible-header");
+//     body.innerText = `${data.name}`;
+//     fullText.setAttribute('class', "collapsible-body");
+//     street.innerHTML = `<b> ${data.address}</b>`;
+//     desc.innerHTML = `${data.description}`;
+//     hours.innerHTML = `Open from ${data.start} to ${data.end} every ${data.day}`;
+//     fullText.append(street);
+//     fullText.append(desc);
+//     fullText.append(hours);
+//     listItem.append(body);
+//     listItem.append(fullText);
+//     truckList.append(listItem);
+// }
   //here is my append table
   let selectClass = document.getElementsByClassName("select");
   let tbody = document.querySelector("tbody");
@@ -137,7 +158,7 @@ form.addEventListener("submit", function(e){
       let district = document.createElement("td");
       let address = document.createElement("td");
 
-      time.innerText = topFiveAllThree[i].time.split(':')[0]; //my click value
+      time.innerText = topFiveAllThree[i].time; //my click value
       day.innerText = topFiveAllThree[i].dayofweek; //my cl
       date.innerText = topFiveAllThree[i].date;
       district.innerText = topFiveAllThree[i].pddistrict;

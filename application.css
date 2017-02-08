@@ -10,13 +10,38 @@ body {
   margin: 5px;
 }
 
+#index-banner{
+  background-image: url("images/background1.jpg");
+}
+/*.scrollit {
+    overflow:scroll;
+    height:30px;
+}*/
 
 
-/*#map-canvas {
+thead, tbody { display: block; }
+
+.scrollit{
+    height: 300px;       /* Just for the demo          */
+    overflow:scroll;
+    /*overflow-y: auto;    /* Trigger vertical scroll    */*/
+    /*overflow-x: hidden;  /* Hide the horizontal scroll */*/
+}
+
+table {
+    width: 100%; /* Optional */
+}
+
+td, th {
+      width: 18%;  /* Optional */
+  }
+
+
+#map-canvas {
   width: 85%;
   height: 600px;
   margin: 10px;
   border: 2px solid;
   border-radius: 25px;
   background-color: grey;
-}*/
+}
