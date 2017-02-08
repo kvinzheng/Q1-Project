@@ -23,8 +23,8 @@
           <form action="" method="get" name = "hello">
             <div>
               <label for="selection-time">Please select the time of the day</label>
-              <select id="selection-time" name="time" class="required">
-                <option value="" disabled selected>Choose your option</option>
+              <select id="selection-time" class="validate" name="time">
+                <option value="" >Choose your option</option>
                 <option value = '01'> 1:00 a.m. </option>
                 <option value = '02'> 2:00 a.m. </option>
                 <option value = '03'> 3:00 a.m. </option>
@@ -54,8 +54,8 @@
             <br>
             <div >
               <label for="selection-day">Please select the day of the week</label>
-              <select id="selection-day" name="week" class="required">
-                <option value="" disabled selected>Choose your option</option>
+              <select id="selection-day" name="week">
+                <option value="" >Choose your option</option>
                 <option value="Monday"> Monday </option>
                 <option value="Tuesday"> Tuesday </option>
                 <option value="Wednesday"> Wednesday </option>
@@ -68,8 +68,8 @@
             <br>
             <div >
               <label for="selection-district">Please select the district in San Francisco</label>
-              <select id="selection-district" name="district" class="required">
-                <option value="" disabled selected>Choose your option</option>
+              <select id="selection-district" name="district">
+                <option value="" >Choose your option</option>
                 <option value = "BAYVIEW">BAYVIEW</option>
                 <option value = "CENTRAL">CENTRAL</option>
                 <option value = "INGLESIDE">INGLESIDE</option>
@@ -91,15 +91,15 @@
           <table class = "striped">
             <thead>
               <tr>
-                <th data-field="day">Day</th>
                 <th data-field="time">Time</th>
+                <th data-field="day">Day</th>
                 <th data-field="date">Day</th>
                 <th data-field="address">Address</th>
                 <th data-field="district">District</th>
               </tr>
             </thead>
 
-            <tbody>
+            <tbody id = "myTableID">
 
             </tbody>
           </table>
@@ -131,18 +131,23 @@
     function loadScript() {
       var script = document.createElement('script');
       script.type = 'text/javascript';
-      script.async = true;
-      script.defer = true;
       script.src = 'https://maps.googleapis.com/maps/api/js?' +
       'key=' + GOOGLE_MAP_KEY +'&callback=initMap';
-
+      script.async = true;
+      script.defer = true;
       document.body.appendChild(script);
     }
     window.onload = loadScript;
   </script>
 
-  <!-- <script async defer src = `https://maps.googleapis.com/maps/api/js?key=${APIKey}&callback=initMap`></script> -->
-  <!--this is CDN -->
+  <!-- <script async defer src = `https://maps.googleapis.com/maps/api/js?key=${APIKey}&callback=initMap`></script>  -->
+
+    <!-- this is through local file -->
+   <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+   <script type="text/javascript" src="js/materialize.min.js"></script> -->
+
+
+  <!-- this is CDN -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
     </script>
 
