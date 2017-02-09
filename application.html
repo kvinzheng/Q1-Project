@@ -57,7 +57,7 @@
 
             <div class="col s10">
               <span class="black-text">
-                Hello Users! If you ever curious about where most incidents occurse the most in the San Francisco, when happen the most, and what time of the day happens the most. Please select the below options below
+                Hello Users! If you are ever curious about where and when incidents occur the most often in San Francisco, please select the options below.
               </span>
             </div>
           </div>
@@ -120,6 +120,28 @@
         </select>
       </div>
       <br>
+      <div>
+        <label for="selection-year">Please select the year</label>
+        <select id="selection-year" class="validate" name="year">
+          <option value="" >By Default 2003 - 2017 </option>
+          <option value = '2003'> 2003 </option>
+          <option value = '2004'> 2004 </option>
+          <option value = '2005'> 2005 </option>
+          <option value = '2006'> 2006 </option>
+          <option value = '2007'> 2007 </option>
+          <option value = '2008'> 2008 </option>
+          <option value = '2009'> 2009 </option>
+          <option value = '2010'> 2010 </option>
+          <option value = '2011'> 2011 </option>
+          <option value = '2012'> 2012 </option>
+          <option value = '2013'> 2013 </option>
+          <option value = '2014'> 2014 </option>
+          <option value = '2015'> 2015 </option>
+          <option value = '2016'> 2016 </option>
+          <option value = '2017'> 2017 </option>
+        </select>
+      </div>
+      <br>
       <div >
         <label for="selection-district">Please select the district in San Francisco</label>
         <select id="selection-district" name="district">
@@ -152,6 +174,7 @@
           <th data-field="date">  Day(YYYY-MM-DD)</th>
           <th data-field="district">District</th>
           <th data-field="address">    Address</th>
+          <th data-field="year">    Year</th>
         </tr>
       </thead>
 
@@ -178,11 +201,10 @@
 </div>
 <div name="right-hand side" class="col s6">
   <div>
-    <p><font size = "5"> Use to map to inspect the areas that have incidents occur </font></p>
+    <p><font size = "5"> Inspect the map</font></p>
   </div>
   <div id = "map-canvas"></div>
 </div>
-
 
 
 <!--

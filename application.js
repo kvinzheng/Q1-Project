@@ -9,22 +9,20 @@ function initMap(){
   var options = {
     diableDefaultUI: false,
     center: sanfrancisco,
-    zoom: 10,
+    zoom: 12,
     minZoom: 9,
     scrollwheel: true,
     zoomControlOptions:{
-      position: google.maps.ControlPosition.BOTTOM_LEFT
+      position: google.maps.ControlPosition.RIGHT_BOTTOM
     },
     streetViewControlOptions: {
-        position: google.maps.ControlPosition.BOTTOM_LEFT
+        position: google.maps.ControlPosition.RIGHT_BOTTOM
     }
   };
   var element = document.getElementById('map-canvas');
   //map
   map = new google.maps.Map(element, options);
-
 }
-
 // var incidents
 function getData(){
   let url = ('https://data.sfgov.org/resource/vv57-2fgy.json');
@@ -46,11 +44,13 @@ function getData(){
 let form = document.getElementsByTagName('form')[0];
 form.addEventListener("submit", function(e){
   e.preventDefault();
+  initMap()
   //i empty the table here
 
   let timeSelector = document.getElementById("selection-time");
   let dayofweekSelector = document.getElementById("selection-day");
   let sfdistrictSelector = document.getElementById("selection-district");
+  let yearSelector = document.getElementById("selection-year")
 
   getData()
     .then(function(incidents) {
@@ -77,6 +77,13 @@ form.addEventListener("submit", function(e){
         });
       }
 
+      if(yearSelector.value){
+        allThreeFilter = allThreeFilter.filter(function(incident){
+          //  console.log(incident.date.substring(0,4));
+          return ( incident.date.substring(0,4) === yearSelector.value )
+        });
+      }
+
       let numberofincident = document.getElementById("numberofIncident");
       numberofincident.innerText = allThreeFilter.length;
 
@@ -84,67 +91,49 @@ form.addEventListener("submit", function(e){
         return Date.parse(b.date.replace(/'-'/g, '/') - Date.parse(a.date.replace(/'-'/g, '/')))
       });
 
-      //console.log(AllThree);
-       //{ lat: 37.773972, lng: -122.431297 }
-
       //here is an array of coordinate
       let incidentCoordinates = AllThree.map(function(incident){
       return { lat: parseFloat(incident.y) , lng: parseFloat(incident.x) };
       });
       console.log(incidentCoordinates);
-      initMap(incidentCoordinates);
+      initMap();
 
+      //var markersArray = [];
       incidentCoordinates.forEach(function(coordinate){
         var marker = new google.maps.Marker({
           position: coordinate, //{lat: 388 ,lng:-122}
           map: map
         });
+        // markersArray.push(marker);
       });
+      // google.maps.event.addListener(marker,"click",
+      // function(){
+      //   console.log(event);
+      //   clearOverlays();}
+      // );
+
       //append marker to my google map
-      // console.log(incidentCoordinates);
       appendTable(AllThree);
     });
   });
 
-//   function mapMaker(result) {
-//     let contentString = `<div class="truckMap"><h4 class="truckHeader">${result.name}</h4><p class="truckText">Address: ${result.address}</p></div>`;
-//     let latLng = new google.maps.LatLng(result.lat, result.lng);
-//     let marker = new google.maps.Marker({
-//         position: latLng,
-//         animation: google.maps.Animation.DROP,
-//         icon: "imgs/foodtruckMarker.png"
-//     });
-//     let infowindow = new google.maps.InfoWindow({
-//         content: contentString,
-//         id: `${result.identifier}`
-//     });
-//     marker.addListener('click', function() {
-//         infowindow.open(map, marker);
-//     });
-//     markers.push(marker)
-//     marker.setMap(map);
-// }
+  // function clearOverlays() {
+  //   for (var i = 0; i < markersArray.length; i++ ) {
+  //     markersArray[i].setMap(null);
+  //   }
+  //   markersArray.length = 0;
+  // }
 
-//   function addToCollapse(data) {
-//     let listItem = document.createElement('li');
-//     let body = document.createElement('div');
-//     let fullText = document.createElement('div');
-//     let street = document.createElement('p');
-//     let desc = document.createElement('p');
-//     let hours = document.createElement('p');
-//     body.setAttribute('class', "collapsible-header");
-//     body.innerText = `${data.name}`;
-//     fullText.setAttribute('class', "collapsible-body");
-//     street.innerHTML = `<b> ${data.address}</b>`;
-//     desc.innerHTML = `${data.description}`;
-//     hours.innerHTML = `Open from ${data.start} to ${data.end} every ${data.day}`;
-//     fullText.append(street);
-//     fullText.append(desc);
-//     fullText.append(hours);
-//     listItem.append(body);
-//     listItem.append(fullText);
-//     truckList.append(listItem);
-// }
+  // function removeMarkers(array) {
+  //   array.forEach( (element) => {
+  //     element.getMap() !== null ? element.setMap(null) : element.setMap(map)
+  //   })
+  // }
+
+  let infowindow = new google.maps.InfoWindow({
+    content: contentString
+  })
+
   //here is my append table
   let selectClass = document.getElementsByClassName("select");
   let tbody = document.querySelector("tbody");
@@ -157,18 +146,20 @@ form.addEventListener("submit", function(e){
       let date = document.createElement("td");
       let district = document.createElement("td");
       let address = document.createElement("td");
+      let year = document.createElement("td");
 
       time.innerText = topFiveAllThree[i].time; //my click value
       day.innerText = topFiveAllThree[i].dayofweek; //my cl
       date.innerText = topFiveAllThree[i].date;
       district.innerText = topFiveAllThree[i].pddistrict;
       address.innerText = topFiveAllThree[i].address;
-
+      year.innerText = topFiveAllThree[i].date.substring(0,4);
       row.appendChild(time);
       row.appendChild(day);
       row.appendChild(date);
       row.appendChild(district);
       row.appendChild(address);
+      row.appendChild(year);
       tbody.appendChild(row);
     }
     return tbody;
