@@ -16,7 +16,7 @@
     </div>
   </nav>
 
-  <div class="section no-pad-bot" id="index-banner">
+  <div class="section no-pad-bot" id = "index-banner" >
     <div class="container" id = "background">
       <br><br>
       <h1 class="header center white-text"> Secured, Private , Accurate</h1>
@@ -57,7 +57,7 @@
 
             <div class="col s10">
               <span class="black-text">
-                Hello Users! If you are ever curious about where and when incidents occur the most often in San Francisco, please select the options below.
+                Hey, my name is Siri. If you are ever curious about where and when incidents occur the most often in San Francisco, please select the options below.
               </span>
             </div>
           </div>
@@ -78,7 +78,7 @@
       <div>
         <label for="selection-time">Please select the time of the day</label>
         <select id="selection-time" class="validate" name="time">
-          <option value="" >By Default 12:00 am -11:59 pm</option>
+          <option value="" >Default_(12:00 am -11:59 pm)</option>
           <option value = '01'> 1:00 a.m. </option>
           <option value = '02'> 2:00 a.m. </option>
           <option value = '03'> 3:00 a.m. </option>
@@ -109,7 +109,7 @@
       <div >
         <label for="selection-day">Please select the day of the week</label>
         <select id="selection-day" name="week">
-          <option value="" >By default Monday - Sunday</option>
+          <option value="" >Default_(Monday - Sunday)</option>
           <option value="Monday"> Monday </option>
           <option value="Tuesday"> Tuesday </option>
           <option value="Wednesday"> Wednesday </option>
@@ -123,7 +123,7 @@
       <div>
         <label for="selection-year">Please select the year</label>
         <select id="selection-year" class="validate" name="year">
-          <option value="" >By Default 2003 - 2017 </option>
+          <option value="" >Default_(2003 - 2017) </option>
           <option value = '2003'> 2003 </option>
           <option value = '2004'> 2004 </option>
           <option value = '2005'> 2005 </option>
@@ -145,7 +145,7 @@
       <div >
         <label for="selection-district">Please select the district in San Francisco</label>
         <select id="selection-district" name="district">
-          <option value="" >By Default All District SF</option>
+          <option value="" >Default_(All Districts)</option>
           <option value = "BAYVIEW">BAYVIEW</option>
           <option value = "CENTRAL">CENTRAL</option>
           <option value = "INGLESIDE">INGLESIDE</option>
@@ -159,6 +159,25 @@
         </select>
       </div>
       <br>
+      <div>
+        <label for="selection-resolution">Please select the kind of incident</label>
+        <select id="selection-resolution" class="validate" name="resolution">
+          <option value="" >Default_(All Resolutions) </option>
+          <option value = 'NONE'> NONE </option>
+          <option value = "ARREST, BOOKED"> ARREST, BOOKED </option>
+          <option value = 'ARREST, CITED'> ARREST, CITED </option>
+          <option value = "COMPLAINANT REFUSES TO PROSECUTE"> COMPLAINANT REFUSES TO PROSECUTE </option>
+          <option value = "DISTRICT ATTORNEY REFUSES TO PROSECUTE"> DISTRICT ATTORNEY REFUSES TO PROSECUTE </option>
+          <option value = "EXCEPTIONAL CLEARANCE"> EXCEPTIONAL CLEARANCE </option>
+          <option value = "JUVENILE ADMONISHED"> JUVENILE ADMONISHED </option>
+          <option value = "JUVENILE BOOKED"> JUVENILE BOOKED </option>
+          <option value = "JUVENILE CITED"> JUVENILE CITED </option>
+          <option value = "NOT PROSECUTED"> NOT PROSECUTED </option>
+          <option value = "PSYCHOPATHIC CASE"> PSYCHOPATHIC CASE </option>
+          <option value = "UNFOUNDED"> UNFOUNDED</option>
+        </select>
+      </div>
+    </br>
       <div >
         <button id="submit" class="btn waves-effect waves-light #90caf9 blue lighten-3" type="submit" name="submitbutton" value="Submit">Click Here To Look At The Danger Zone!</button>
       </div>
@@ -175,6 +194,7 @@
           <th data-field="district">District</th>
           <th data-field="address">    Address</th>
           <th data-field="year">    Year</th>
+          <th data-field="resolution"> Kind Of Incident</th>
         </tr>
       </thead>
 
@@ -200,10 +220,8 @@
 </div>
 </div>
 <div name="right-hand side" class="col s6">
-  <div>
-    <p><font size = "5"> Inspect the map</font></p>
-  </div>
-  <div id = "map-canvas"></div>
+  <br>
+  <div id = "map-canvas" class = "alignRight"></div>
 </div>
 
 

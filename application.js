@@ -10,7 +10,7 @@ function initMap(){
     diableDefaultUI: false,
     center: sanfrancisco,
     zoom: 12,
-    minZoom: 9,
+    minZoom: 11,
     scrollwheel: true,
     zoomControlOptions:{
       position: google.maps.ControlPosition.RIGHT_BOTTOM
@@ -51,6 +51,7 @@ form.addEventListener("submit", function(e){
   let dayofweekSelector = document.getElementById("selection-day");
   let sfdistrictSelector = document.getElementById("selection-district");
   let yearSelector = document.getElementById("selection-year")
+  let resolutionSelector = document.getElementById("selection-resolution")
 
   getData()
     .then(function(incidents) {
@@ -80,7 +81,16 @@ form.addEventListener("submit", function(e){
       if(yearSelector.value){
         allThreeFilter = allThreeFilter.filter(function(incident){
           //  console.log(incident.date.substring(0,4));
+
           return ( incident.date.substring(0,4) === yearSelector.value )
+        });
+      }
+      //console.log(incidents);
+      if(resolutionSelector.value){
+        allThreeFilter = allThreeFilter.filter(function(incident){
+          //  console.log(incident.date.substring(0,4));
+          console.log(resolutionSelector.value);
+          return ( incident.resolution === resolutionSelector.value )
         });
       }
 
@@ -95,9 +105,12 @@ form.addEventListener("submit", function(e){
       let incidentCoordinates = AllThree.map(function(incident){
       return { lat: parseFloat(incident.y) , lng: parseFloat(incident.x) };
       });
-      console.log(incidentCoordinates);
+      //console.log(incidentCoordinates);
       initMap();
 
+      if(AllThree.length === 0){
+        alert("Found nothing, please try other options");
+      }
       //var markersArray = [];
       incidentCoordinates.forEach(function(coordinate){
         var marker = new google.maps.Marker({
@@ -130,9 +143,28 @@ form.addEventListener("submit", function(e){
   //   })
   // }
 
-  let infowindow = new google.maps.InfoWindow({
-    content: contentString
-  })
+  // let infowindow = new google.maps.InfoWindow({
+  //   content: contentString
+  // });
+  //
+  // function mapMaker(result) {
+  //   let contentString = `<div class="truckMap"><h4 class="truckHeader">${result.name}</h4><p class="truckText">Address: ${result.address}</p></div>`;
+  //   let latLng = new google.maps.LatLng(result.lat, result.lng);
+  //   let marker = new google.maps.Marker({
+  //       position: latLng,
+  //       animation: google.maps.Animation.DROP,
+  //       icon: "imgs/foodtruckMarker.png"
+  //   });
+  //   let infowindow = new google.maps.InfoWindow({
+  //       content: contentString,
+  //       id: `${result.identifier}`
+  //   });
+  //   marker.addListener('click', function() {
+  //       infowindow.open(map, marker);
+  //   });
+  //   markers.push(marker)
+  //   marker.setMap(map);
+  // }
 
   //here is my append table
   let selectClass = document.getElementsByClassName("select");
@@ -147,6 +179,7 @@ form.addEventListener("submit", function(e){
       let district = document.createElement("td");
       let address = document.createElement("td");
       let year = document.createElement("td");
+      let resolution = document.createElement("td");
 
       time.innerText = topFiveAllThree[i].time; //my click value
       day.innerText = topFiveAllThree[i].dayofweek; //my cl
@@ -154,12 +187,14 @@ form.addEventListener("submit", function(e){
       district.innerText = topFiveAllThree[i].pddistrict;
       address.innerText = topFiveAllThree[i].address;
       year.innerText = topFiveAllThree[i].date.substring(0,4);
+      resolution.innerText = topFiveAllThree[i].resolution;
       row.appendChild(time);
       row.appendChild(day);
       row.appendChild(date);
       row.appendChild(district);
       row.appendChild(address);
       row.appendChild(year);
+      row.appendChild(resolution);
       tbody.appendChild(row);
     }
     return tbody;

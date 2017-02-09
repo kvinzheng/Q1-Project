@@ -18,6 +18,13 @@ body {
     height:30px;
 }*/
 
+.aligMid{
+  text-align: center;
+}
+
+.alignRight{
+  float: right;
+}
 
 thead, tbody { display: block; }
 
@@ -40,7 +47,7 @@ td, th {
 #map-canvas {
   width: 85%;
   height: 800px;
-  margin: 10px;
+  margin: 15px;
   border: 2px solid;
   border-radius: 25px;
   background-color: grey;
