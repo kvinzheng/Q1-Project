@@ -3,6 +3,7 @@ $(document).ready(function() {
 });
 
 var map;
+var infowindow;
 function initMap(){
   //map options
   var sanfrancisco = { lat: 37.773972, lng: -122.431297 };
@@ -46,7 +47,6 @@ form.addEventListener("submit", function(e){
   e.preventDefault();
   //this is where i call my google map
   initMap();
-
   let timeSelector = document.getElementById("selection-time");
   let dayofweekSelector = document.getElementById("selection-day");
   let sfdistrictSelector = document.getElementById("selection-district");
@@ -97,7 +97,7 @@ form.addEventListener("submit", function(e){
       return Date.parse(b.date.replace(/'-'/g, '/') - Date.parse(a.date.replace(/'-'/g, '/')))
     });
     //here is an array of coordinate
-    console.log(afterFilter);
+    //console.log(afterFilter);
 
     //I am return an new object for all my incident object.
     let incidentInfo = afterFilter.map(function(incident){
@@ -116,11 +116,11 @@ form.addEventListener("submit", function(e){
       Materialize.toast("Found nothing, please try other options", 5000);
     }
     //var markersArray = [];
-    console.log(incidentInfo);
+    //console.log(incidentInfo);
     //Here is where I will be putting marketing but also adding content to my markers as well
 
     incidentInfo.forEach(function(crimeObj){
-      console.log(crimeObj);
+      //console.log(crimeObj);
       var marker = new google.maps.Marker({
         position: crimeObj.coordinates,
         map: map,
@@ -137,17 +137,19 @@ form.addEventListener("submit", function(e){
       '</div>'+
       '</div>';
 
-      var infowindow = new google.maps.InfoWindow({
-        content: contentString
-      });
-      marker.addListener('click', function() {
+      marker.addListener('click', function(){
+        if(infowindow){
+          console.log("where are in the window" + infowindow);
+          infowindow.close();
+        }
+        infowindow = new google.maps.InfoWindow({
+          content: contentString
+        });
         infowindow.open(map, marker);
       });
-
       // google.maps.event.addListener(marker, 'click', function() {
       //    infowindow.open(map, this);
       // });
-
     });
     appendTable(afterFilter);
   });
