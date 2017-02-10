@@ -22,8 +22,6 @@ function initMap(){
   var element = document.getElementById('map-canvas');
   //map
   map = new google.maps.Map(element, options);
-
-
 }
 // var incidents
 function getData(){
@@ -46,8 +44,8 @@ function getData(){
 let form = document.getElementsByTagName('form')[0];
 form.addEventListener("submit", function(e){
   e.preventDefault();
-  initMap()
-  //i empty the table here
+  //this is where i call my google map
+  initMap();
 
   let timeSelector = document.getElementById("selection-time");
   let dayofweekSelector = document.getElementById("selection-day");
@@ -57,87 +55,87 @@ form.addEventListener("submit", function(e){
 
   getData()
   .then(function(incidents) {
+    //I set my tbody's ID to myTableID, so that the first thing after I click would be refreshing my table first.
     $('#myTableID').empty();
-    //here is my coordinates
-    //  console.log(incidents);
-    let allThreeFilter = incidents.slice();
+    let allFilter = incidents.slice();
     //if time value exist
     if(timeSelector.value){
-      allThreeFilter = allThreeFilter.filter(function(incident){
+      allFilter = allFilter.filter(function(incident){
         return ( incident.time.split(':')[0] === timeSelector.value )
       });
     }
     //if day value exist
     if(dayofweekSelector.value){
-      allThreeFilter = allThreeFilter.filter(function(incident){
+      allFilter = allFilter.filter(function(incident){
         return ( incident.dayofweek === dayofweekSelector.value )
       });
     }
     //if district exist
     if(sfdistrictSelector.value){
-      allThreeFilter = allThreeFilter.filter(function(incident){
+      allFilter = allFilter.filter(function(incident){
         return ( incident.pddistrict === sfdistrictSelector.value )
       });
     }
     //if the year exist
     if(yearSelector.value){
-      allThreeFilter = allThreeFilter.filter(function(incident){
+      allFilter = allFilter.filter(function(incident){
         return ( incident.date.substring(0,4) === yearSelector.value )
       });
     }
     //if the resolution exist
     if(resolutionSelector.value){
-      allThreeFilter = allThreeFilter.filter(function(incident){
+      allFilter = allFilter.filter(function(incident){
         //  console.log(resolutionSelector.value);
         return ( incident.resolution === resolutionSelector.value )
       });
     }
 
     let numberofincident = document.getElementById("numberofIncident");
-    numberofincident.innerText = allThreeFilter.length;
+    numberofincident.innerText = allFilter.length;
 
-    let AllThree = allThreeFilter.sort(function(a,b){
+    let afterFilter = allFilter.sort(function(a,b){
       return Date.parse(b.date.replace(/'-'/g, '/') - Date.parse(a.date.replace(/'-'/g, '/')))
     });
-
-    console.log(AllThree);
     //here is an array of coordinate
+    console.log(afterFilter);
 
-    let incidentInfo = AllThree.map(function(incident){
+    //I am return an new object for all my incident object.
+    let incidentInfo = afterFilter.map(function(incident){
       return {
+        time: incident.time,
         address: incident.address,
         descript: incident.descript,
         resolution: incident.resolution,
+        date : incident.date,
+        category: incident.category,
         coordinates: { lat: parseFloat(incident.y), lng: parseFloat(incident.x) },
-        category: incident.category
       }
     });
-    initMap();
-
-    if(AllThree.length === 0){
-      //alert("Found nothing, please try other options");
+    //alert("Found nothing, please try other options");
+    if(afterFilter.length === 0){
       Materialize.toast("Found nothing, please try other options", 5000);
-
     }
     //var markersArray = [];
     console.log(incidentInfo);
+    //Here is where I will be putting marketing but also adding content to my markers as well
+
     incidentInfo.forEach(function(crimeObj){
       console.log(crimeObj);
       var marker = new google.maps.Marker({
-        position: crimeObj.coordinates, //{lat: 388 ,lng:-122}
+        position: crimeObj.coordinates,
         map: map,
         icon: "images/car.png"
       });
 
-
       var contentString = '<div id="content">'+
-        '<div id="siteNotice">'+
-        '</div>'+
-        '<h4 id="firstHeading" class="firstHeading">Car Incident</h4>'+
-        '<div id="bodyContent">'+
-        '<b> The incident occured at : </b>'+ crimeObj.address + '<p><b> The kind of car accident is </b>' + crimeObj.descript + '</p>' + '<p><b> After the polices investigated, the result is </b>' + crimeObj.resolution + '.</p>' + '<p><b> the category is </b>'+ crimeObj.category + '</p>' +
-        '</div>'+
-        '</div>';
+      '<div id="siteNotice">'+
+      '</div>'+
+      '<h4 id="firstHeading" class="firstHeading">Car Incident</h4>'+
+      '<div id="bodyContent">'+
+      '<b> The incident occured at : </b>'+ crimeObj.address + '<p><b> The kind of car accident is </b>' + crimeObj.descript + '</p>' + '<p><b> After the police investigation,the result is </b>' + crimeObj.resolution + '.</p>' + '<p><b> The category is </b>'+ crimeObj.category + '</p>' + '<p><b> The date and time of the accident: </b>'+ crimeObj.time + ' , ' +
+      crimeObj.date + '</p>' + '<p><b> Thanks for viewing my page.</b></p>'
+      '</div>'+
+      '</div>';
 
       var infowindow = new google.maps.InfoWindow({
         content: contentString
@@ -146,17 +144,20 @@ form.addEventListener("submit", function(e){
         infowindow.open(map, marker);
       });
 
+      // google.maps.event.addListener(marker, 'click', function() {
+      //    infowindow.open(map, this);
+      // });
+
     });
-    appendTable(AllThree);
+    appendTable(afterFilter);
   });
 });
 
 //here is my append table
 let selectClass = document.getElementsByClassName("select");
 let tbody = document.querySelector("tbody");
-
-function appendTable(topFiveAllThree){
-  for(let i = 0; i < topFiveAllThree.length; i++){
+function appendTable(afterFilterToAppend){
+  for(let i = 0; i < afterFilterToAppend.length; i++){
     let row = document.createElement("tr");
     let time  = document.createElement("td");
     let day = document.createElement("td");
@@ -166,13 +167,13 @@ function appendTable(topFiveAllThree){
     let year = document.createElement("td");
     let resolution = document.createElement("td");
 
-    time.innerText = topFiveAllThree[i].time; //my click value
-    day.innerText = topFiveAllThree[i].dayofweek; //my cl
-    date.innerText = topFiveAllThree[i].date;
-    district.innerText = topFiveAllThree[i].pddistrict;
-    address.innerText = topFiveAllThree[i].address;
-    year.innerText = topFiveAllThree[i].date.substring(0,4);
-    resolution.innerText = topFiveAllThree[i].resolution;
+    time.innerText = afterFilterToAppend[i].time;
+    day.innerText = afterFilterToAppend[i].dayofweek;
+    date.innerText = afterFilterToAppend[i].date;
+    district.innerText = afterFilterToAppend[i].pddistrict;
+    address.innerText = afterFilterToAppend[i].address;
+    year.innerText = afterFilterToAppend[i].date.substring(0,4);
+    resolution.innerText = afterFilterToAppend[i].resolution;
     row.appendChild(time);
     row.appendChild(day);
     row.appendChild(date);

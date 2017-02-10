@@ -70,7 +70,14 @@ td, th {
   align-content: center;
 }
 
+.input-icon {
+  float: left;
+}
 
+.input-text{
+  float:left;
+  margin-top: 25px;
+}
 
 #map-canvas {
   width: 100%;

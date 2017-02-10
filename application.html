@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
-
 <body class = "#e3f2fd blue lighten-5">
   <nav class = "#1976d2 blue darken-2 header-cont ">
     <div class="nav-wrapper container">
@@ -22,7 +21,6 @@
       <br><br>
       <div class="row center-title">
         <h1 class="header center white-text"> Car Incident GPS</h1>
-        <!-- <a href="order.html" id="download-button" class="btn-large waves-effect waves-light pink ">PLACE AN ORDER</a> -->
       </div>
       <br><br>
     </div>
@@ -49,7 +47,6 @@
           </div>
         </div>
       </div>
-
       <br>
       <br>
       <br>
@@ -60,7 +57,6 @@
       <br>
       <br>
       <br>
-
       <div>
         <label for="selection-time">Please select the time of the day</label>
         <select id="selection-time" class="validate" name="time">
@@ -168,85 +164,56 @@
         <button id="submit" class="btn waves-effect waves-light #f06292 pink lighten-2" type="submit" name="submitbutton" value="Submit">Click Here To Look At The Danger Zone!</button>
       </div>
     </form>
-    <!-- here is my table -->
-    <!-- <div class = "scrollit"> -->
 
-  <!-- </div> -->
-
-
-
-<div name = "display">
-  <div>
-  <div class="row">
-    <div> <i class="medium material-icons iconleft  ">input</i>  Total Incident : <span id = "numberofIncident" > </span>
+    <div name = "display">
+      <div class="row">
+        <div>
+          <i class="medium material-icons iconleft  input-icon">input</i>
+          <div class = "input-text"> Total Incident :
+            <span id="numberofIncident"> </span> </div>
+          </div>
       </div>
+    </div>
+    </div>
+    <div name="right-hand side" class="col s6">
+      <br>
+      <div id = "map-canvas" ></div>
+    </div>
 
-  </div>
-    <!-- <div class="col s6">Here is the google map picture</div> -->
-  </div>
-</div>
-</div>
-<div name="right-hand side" class="col s6">
-  <br>
-  <div id = "map-canvas" ></div>
-</div>
+     <div class="row">
+       <div class="col s11 offset-s1">
+        <table class = "striped tablewid">
+        <thead>
+          <tr>
+            <th data-field="time">Time(HR-MM)</th>
+            <th data-field="day">(DayM-S)</th>
+            <th data-field="date">  Day(YYYY-MM-DD)</th>
+            <th data-field="district">District</th>
+            <th data-field="address">    Address</th>
+            <th data-field="year">    Year</th>
+            <th data-field="resolution"> Kind Of Incident</th>
+          </tr>
+        </thead>
+        <tbody id = "myTableID" class = "scrollit">
 
-<!-- </div> -->
- <div class="row">
-   <div class="col s11 offset-s1">
-
-    <table class = "striped tablewid">
-
-    <thead>
-      <tr>
-        <th data-field="time">Time(HR-MM)</th>
-        <th data-field="day">(DayM-S)</th>
-        <th data-field="date">  Day(YYYY-MM-DD)</th>
-        <th data-field="district">District</th>
-        <th data-field="address">    Address</th>
-        <th data-field="year">    Year</th>
-        <th data-field="resolution"> Kind Of Incident</th>
-      </tr>
-    </thead>
-
-    <tbody id = "myTableID" class = "scrollit">
-
-    </tbody>
-
-    </table>
-
-
-
-
-
-  </div>
-</div>
-<!-- </div> -->
-
-<!--
-<div name = "display">
-<div class="row">
-<div class="col s6">After you click the "Click Here to Look At Danger Zone!" The total amount of incident that match the options that you select above is =====>  <span id = "numberofIncident" > </span>
-</div>
-
-<div class="col s6">Here is the google map picture</div>
-</div>
-</div> -->
+        </tbody>
+        </table>
+      </div>
+    </div>
 
 </main>
 <ul class="collapsible" data-collapsible="accordion">
    <li>
      <div class="collapsible-header"><i class="material-icons">filter_drama</i>Why am I creating this?</div>
-     <div class="collapsible-body"><span>I created this so that citizens can use my webpage to find out where incidents happens the most, so that they can avoid the possible danger zoom and might avoid some traffic in that day</span></div>
+     <div class="collapsible-body"><span>I created this app because people aren't usually aware of where traffic accidents occur most frequently. They can use my app to better inform themselves about the safety of their surroundings.</span></div>
    </li>
    <li>
-     <div class="collapsible-header"><i class="material-icons">place</i>Click me</div>
-     <div class="collapsible-body"><span> In the section above, you can see the location of your selection. If you click on the marker on that map, you can see the relevant information as well.</span></div>
+     <div class="collapsible-header"><i class="material-icons">language</i> Click here to view the source</div>
+       <div class="collapsible-body"><span>
+       <a href ='https://data.sfgov.org/Public-Safety/SFPD-Incidents-Traffic-Accidents/vv57-2fgy'>San Francisco Open Data SFPD: Incidents - Traffic Accidents</a>
+        </span>
+      </div>
    </li>
-   <!-- <li>
-     <div class="collapsible-header"><i class="material-icons">whatshot</i>Third</div>
-     <div class="collapsible-body"><span>This part show the danger zoom.</span></div>
-   </li> -->
  </ul>
 
 <footer class="page-footer #1976d2 blue darken-2">
@@ -272,7 +239,6 @@
 </footer>
 
 <script>
-//var GOOGLE_MAP_KEY = localStorage.APIKey;
 function loadScript() {
   var script = document.createElement('script');
   script.type = 'text/javascript';
@@ -286,10 +252,8 @@ window.onload = loadScript;
 </script>
 <!--
 <script async defer src = `https://maps.googleapis.com/maps/api/js?key=${APIKey}&callback=initMap`></script>  -->
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
 </script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
 <script type='text/javascript' src='config.js'></script>
 <script type="text/javascript" src = "application.js"></script>
