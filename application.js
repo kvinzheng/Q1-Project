@@ -22,6 +22,8 @@ function initMap(){
   var element = document.getElementById('map-canvas');
   //map
   map = new google.maps.Map(element, options);
+
+
 }
 // var incidents
 function getData(){
@@ -57,7 +59,7 @@ form.addEventListener("submit", function(e){
   .then(function(incidents) {
     $('#myTableID').empty();
     //here is my coordinates
-  //  console.log(incidents);
+    //  console.log(incidents);
     let allThreeFilter = incidents.slice();
     //if time value exist
     if(timeSelector.value){
@@ -86,7 +88,7 @@ form.addEventListener("submit", function(e){
     //if the resolution exist
     if(resolutionSelector.value){
       allThreeFilter = allThreeFilter.filter(function(incident){
-      //  console.log(resolutionSelector.value);
+        //  console.log(resolutionSelector.value);
         return ( incident.resolution === resolutionSelector.value )
       });
     }
@@ -126,6 +128,24 @@ form.addEventListener("submit", function(e){
         map: map,
         icon: "images/car.png"
       });
+
+
+      var contentString = '<div id="content">'+
+        '<div id="siteNotice">'+
+        '</div>'+
+        '<h4 id="firstHeading" class="firstHeading">Car Incident</h4>'+
+        '<div id="bodyContent">'+
+        '<b> The incident occured at : </b>'+ crimeObj.address + '<p><b> The kind of car accident is </b>' + crimeObj.descript + '</p>' + '<p><b>The kind of accident is </b>' + crimeObj.resolution + '.</p>' + '<p><b> the category is </b>'+ crimeObj.category + '</p>' +
+        '</div>'+
+        '</div>';
+
+      var infowindow = new google.maps.InfoWindow({
+        content: contentString
+      });
+      marker.addListener('click', function() {
+        infowindow.open(map, marker);
+      });
+
     });
     appendTable(AllThree);
   });
