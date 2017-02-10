@@ -13,10 +13,10 @@ function initMap(){
     minZoom: 11,
     scrollwheel: true,
     zoomControlOptions:{
-      position: google.maps.ControlPosition.RIGHT_BOTTOM
+      position: google.maps.ControlPosition.BOTTOM_LEFT
     },
     streetViewControlOptions: {
-        position: google.maps.ControlPosition.RIGHT_BOTTOM
+      position: google.maps.ControlPosition.BOTTOM_LEFT
     }
   };
   var element = document.getElementById('map-canvas');
@@ -54,148 +54,113 @@ form.addEventListener("submit", function(e){
   let resolutionSelector = document.getElementById("selection-resolution")
 
   getData()
-    .then(function(incidents) {
-      $('#myTableID').empty();
-      //here is my coordinates
-      let allThreeFilter = incidents.slice();
-
-      //if time value exist
-      if(timeSelector.value){
-        allThreeFilter = allThreeFilter.filter(function(incident){
-          return ( incident.time.split(':')[0] === timeSelector.value )
-        });
-      }
-      //if day value exist
-      if(dayofweekSelector.value){
-        allThreeFilter = allThreeFilter.filter(function(incident){
-          return ( incident.dayofweek === dayofweekSelector.value )
-        });
-      }
-      //if district exist
-      if(sfdistrictSelector.value){
-        allThreeFilter = allThreeFilter.filter(function(incident){
-          return ( incident.pddistrict === sfdistrictSelector.value )
-        });
-      }
-
-      if(yearSelector.value){
-        allThreeFilter = allThreeFilter.filter(function(incident){
-          //  console.log(incident.date.substring(0,4));
-
-          return ( incident.date.substring(0,4) === yearSelector.value )
-        });
-      }
-      //console.log(incidents);
-      if(resolutionSelector.value){
-        allThreeFilter = allThreeFilter.filter(function(incident){
-          //  console.log(incident.date.substring(0,4));
-          console.log(resolutionSelector.value);
-          return ( incident.resolution === resolutionSelector.value )
-        });
-      }
-
-      let numberofincident = document.getElementById("numberofIncident");
-      numberofincident.innerText = allThreeFilter.length;
-
-      let AllThree = allThreeFilter.sort(function(a,b){
-        return Date.parse(b.date.replace(/'-'/g, '/') - Date.parse(a.date.replace(/'-'/g, '/')))
+  .then(function(incidents) {
+    $('#myTableID').empty();
+    //here is my coordinates
+  //  console.log(incidents);
+    let allThreeFilter = incidents.slice();
+    //if time value exist
+    if(timeSelector.value){
+      allThreeFilter = allThreeFilter.filter(function(incident){
+        return ( incident.time.split(':')[0] === timeSelector.value )
       });
-
-      //here is an array of coordinate
-      let incidentCoordinates = AllThree.map(function(incident){
-      return { lat: parseFloat(incident.y) , lng: parseFloat(incident.x) };
-      });
-      //console.log(incidentCoordinates);
-      initMap();
-
-      if(AllThree.length === 0){
-        alert("Found nothing, please try other options");
-      }
-      //var markersArray = [];
-      incidentCoordinates.forEach(function(coordinate){
-        var marker = new google.maps.Marker({
-          position: coordinate, //{lat: 388 ,lng:-122}
-          map: map
-        });
-        // markersArray.push(marker);
-      });
-      // google.maps.event.addListener(marker,"click",
-      // function(){
-      //   console.log(event);
-      //   clearOverlays();}
-      // );
-
-      //append marker to my google map
-      appendTable(AllThree);
-    });
-  });
-
-  // function clearOverlays() {
-  //   for (var i = 0; i < markersArray.length; i++ ) {
-  //     markersArray[i].setMap(null);
-  //   }
-  //   markersArray.length = 0;
-  // }
-
-  // function removeMarkers(array) {
-  //   array.forEach( (element) => {
-  //     element.getMap() !== null ? element.setMap(null) : element.setMap(map)
-  //   })
-  // }
-
-  // let infowindow = new google.maps.InfoWindow({
-  //   content: contentString
-  // });
-  //
-  // function mapMaker(result) {
-  //   let contentString = `<div class="truckMap"><h4 class="truckHeader">${result.name}</h4><p class="truckText">Address: ${result.address}</p></div>`;
-  //   let latLng = new google.maps.LatLng(result.lat, result.lng);
-  //   let marker = new google.maps.Marker({
-  //       position: latLng,
-  //       animation: google.maps.Animation.DROP,
-  //       icon: "imgs/foodtruckMarker.png"
-  //   });
-  //   let infowindow = new google.maps.InfoWindow({
-  //       content: contentString,
-  //       id: `${result.identifier}`
-  //   });
-  //   marker.addListener('click', function() {
-  //       infowindow.open(map, marker);
-  //   });
-  //   markers.push(marker)
-  //   marker.setMap(map);
-  // }
-
-  //here is my append table
-  let selectClass = document.getElementsByClassName("select");
-  let tbody = document.querySelector("tbody");
-
-  function appendTable(topFiveAllThree){
-    for(let i = 0; i < topFiveAllThree.length; i++){
-      let row = document.createElement("tr");
-      let time  = document.createElement("td");
-      let day = document.createElement("td");
-      let date = document.createElement("td");
-      let district = document.createElement("td");
-      let address = document.createElement("td");
-      let year = document.createElement("td");
-      let resolution = document.createElement("td");
-
-      time.innerText = topFiveAllThree[i].time; //my click value
-      day.innerText = topFiveAllThree[i].dayofweek; //my cl
-      date.innerText = topFiveAllThree[i].date;
-      district.innerText = topFiveAllThree[i].pddistrict;
-      address.innerText = topFiveAllThree[i].address;
-      year.innerText = topFiveAllThree[i].date.substring(0,4);
-      resolution.innerText = topFiveAllThree[i].resolution;
-      row.appendChild(time);
-      row.appendChild(day);
-      row.appendChild(date);
-      row.appendChild(district);
-      row.appendChild(address);
-      row.appendChild(year);
-      row.appendChild(resolution);
-      tbody.appendChild(row);
     }
-    return tbody;
+    //if day value exist
+    if(dayofweekSelector.value){
+      allThreeFilter = allThreeFilter.filter(function(incident){
+        return ( incident.dayofweek === dayofweekSelector.value )
+      });
+    }
+    //if district exist
+    if(sfdistrictSelector.value){
+      allThreeFilter = allThreeFilter.filter(function(incident){
+        return ( incident.pddistrict === sfdistrictSelector.value )
+      });
+    }
+    //if the year exist
+    if(yearSelector.value){
+      allThreeFilter = allThreeFilter.filter(function(incident){
+        return ( incident.date.substring(0,4) === yearSelector.value )
+      });
+    }
+    //if the resolution exist
+    if(resolutionSelector.value){
+      allThreeFilter = allThreeFilter.filter(function(incident){
+      //  console.log(resolutionSelector.value);
+        return ( incident.resolution === resolutionSelector.value )
+      });
+    }
+
+    let numberofincident = document.getElementById("numberofIncident");
+    numberofincident.innerText = allThreeFilter.length;
+
+    let AllThree = allThreeFilter.sort(function(a,b){
+      return Date.parse(b.date.replace(/'-'/g, '/') - Date.parse(a.date.replace(/'-'/g, '/')))
+    });
+
+    console.log(AllThree);
+    //here is an array of coordinate
+
+    let incidentInfo = AllThree.map(function(incident){
+      return {
+        address: incident.address,
+        descript: incident.descript,
+        resolution: incident.resolution,
+        coordinates: { lat: parseFloat(incident.y), lng: parseFloat(incident.x) },
+        category: incident.category
+      }
+    });
+    initMap();
+
+    if(AllThree.length === 0){
+      //alert("Found nothing, please try other options");
+      Materialize.toast("Found nothing, please try other options", 5000);
+
+    }
+    //var markersArray = [];
+    console.log(incidentInfo);
+    incidentInfo.forEach(function(crimeObj){
+      console.log(crimeObj);
+      var marker = new google.maps.Marker({
+        position: crimeObj.coordinates, //{lat: 388 ,lng:-122}
+        map: map,
+        icon: "images/car.png"
+      });
+    });
+    appendTable(AllThree);
+  });
+});
+
+//here is my append table
+let selectClass = document.getElementsByClassName("select");
+let tbody = document.querySelector("tbody");
+
+function appendTable(topFiveAllThree){
+  for(let i = 0; i < topFiveAllThree.length; i++){
+    let row = document.createElement("tr");
+    let time  = document.createElement("td");
+    let day = document.createElement("td");
+    let date = document.createElement("td");
+    let district = document.createElement("td");
+    let address = document.createElement("td");
+    let year = document.createElement("td");
+    let resolution = document.createElement("td");
+
+    time.innerText = topFiveAllThree[i].time; //my click value
+    day.innerText = topFiveAllThree[i].dayofweek; //my cl
+    date.innerText = topFiveAllThree[i].date;
+    district.innerText = topFiveAllThree[i].pddistrict;
+    address.innerText = topFiveAllThree[i].address;
+    year.innerText = topFiveAllThree[i].date.substring(0,4);
+    resolution.innerText = topFiveAllThree[i].resolution;
+    row.appendChild(time);
+    row.appendChild(day);
+    row.appendChild(date);
+    row.appendChild(district);
+    row.appendChild(address);
+    row.appendChild(year);
+    row.appendChild(resolution);
+    tbody.appendChild(row);
   }
+  return tbody;
+}

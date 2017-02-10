@@ -8,10 +8,11 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
+
 <body class = "#e3f2fd blue lighten-5">
-  <nav class = "#0d47a1 blue darken-4">
+  <nav class = "#1976d2 blue darken-2 header-cont ">
     <div class="nav-wrapper container">
-      <a href ="" class="brands-logo" >Application Homepage</a>
+      <a href ="homepage.html" class="brands-logo" >Application Homepage</a>
       <a href ="" class="right" >Google Map</a>
     </div>
   </nav>
@@ -19,40 +20,25 @@
   <div class="section no-pad-bot" id = "index-banner" >
     <div class="container" id = "background">
       <br><br>
-      <h1 class="header center white-text"> Secured, Private , Accurate</h1>
-      <div class="row center">
+      <div class="row center-title">
+        <h1 class="header center white-text"> Car Incident GPS</h1>
         <!-- <a href="order.html" id="download-button" class="btn-large waves-effect waves-light pink ">PLACE AN ORDER</a> -->
       </div>
       <br><br>
     </div>
   </div>
 
-
-  <!--
-  <nav class = "#0d47a1 blue darken-4">
-  <div class="nav-wrapper container">
-  <a href ="file:///Users/Kevin/Desktop/galvanize-delivers/home.html" class="brands-logo" >Galvanize delivery</a>
-  <ul class="right hide-on-med-and-down">
-  <li><a href="file:///Users/Kevin/Desktop/galvanize-delivers/order.html">Order Delivery</a></li>
-</ul>
-</div>
-</nav> -->
-
 <main class == "container">
-
   <div class = "row">
     <div name="left-hand side" class="col s6">
       <form action="" method="get" name = "hello">
-        <!-- <div class = "card-panel #82b1ff blue accent-1" >
-        <p style="font-size:120%"> Below are three option you can choose on to check the traffic incidents information </p>
-      </div> -->
       <br>
       <br>
       <div class="left-hand side col s12 m12 l12 ">
         <div class="card-panel #bbdefb blue lighten-4">
           <div class="row valign-wrapper">
             <div class="col s2">
-              <img src="images/head.jpg" alt="" class=" circle responsive-img"> <!-- notice the "circle" class -->
+              <img src="images/spy.png" alt="" class=" circle responsive-img">
             </div>
 
             <div class="col s10">
@@ -179,51 +165,63 @@
       </div>
     </br>
       <div >
-        <button id="submit" class="btn waves-effect waves-light #90caf9 blue lighten-3" type="submit" name="submitbutton" value="Submit">Click Here To Look At The Danger Zone!</button>
+        <button id="submit" class="btn waves-effect waves-light #f06292 pink lighten-2" type="submit" name="submitbutton" value="Submit">Click Here To Look At The Danger Zone!</button>
       </div>
     </form>
     <!-- here is my table -->
     <!-- <div class = "scrollit"> -->
-    <table class = "striped">
 
-      <thead>
-        <tr>
-          <th data-field="time">Time(hr-mm)</th>
-          <th data-field="day">(DayM-S)</th>
-          <th data-field="date">  Day(YYYY-MM-DD)</th>
-          <th data-field="district">District</th>
-          <th data-field="address">    Address</th>
-          <th data-field="year">    Year</th>
-          <th data-field="resolution"> Kind Of Incident</th>
-        </tr>
-      </thead>
-
-
-        <tbody id = "myTableID" class = "scrollit">
-
-        </tbody>
-
-    </table>
   <!-- </div> -->
 
 
 
 <div name = "display">
+  <div>
   <div class="row">
-    <i class="medium material-icons flow left">input</i>
-    <br>
-    <div class="col s6">Total Incident : <span id = "numberofIncident" > </span>
-    </div>
+    <div> <i class="medium material-icons iconleft  ">input</i>  Total Incident : <span id = "numberofIncident" > </span>
+      </div>
 
+  </div>
     <!-- <div class="col s6">Here is the google map picture</div> -->
   </div>
 </div>
 </div>
 <div name="right-hand side" class="col s6">
   <br>
-  <div id = "map-canvas" class = "alignRight"></div>
+  <div id = "map-canvas" ></div>
 </div>
 
+<!-- </div> -->
+ <div class="row">
+   <div class="col s11 offset-s1">
+
+    <table class = "striped tablewid">
+
+    <thead>
+      <tr>
+        <th data-field="time">Time(HR-MM)</th>
+        <th data-field="day">(DayM-S)</th>
+        <th data-field="date">  Day(YYYY-MM-DD)</th>
+        <th data-field="district">District</th>
+        <th data-field="address">    Address</th>
+        <th data-field="year">    Year</th>
+        <th data-field="resolution"> Kind Of Incident</th>
+      </tr>
+    </thead>
+
+    <tbody id = "myTableID" class = "scrollit">
+
+    </tbody>
+
+    </table>
+
+
+
+
+
+  </div>
+</div>
+<!-- </div> -->
 
 <!--
 <div name = "display">
@@ -235,8 +233,43 @@
 </div>
 </div> -->
 
-
 </main>
+<ul class="collapsible" data-collapsible="accordion">
+   <li>
+     <div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
+     <div class="collapsible-body"><span>The part shows the weather</span></div>
+   </li>
+   <li>
+     <div class="collapsible-header"><i class="material-icons">place</i>Second</div>
+     <div class="collapsible-body"><span>The part show the location.</span></div>
+   </li>
+   <li>
+     <div class="collapsible-header"><i class="material-icons">whatshot</i>Third</div>
+     <div class="collapsible-body"><span>This part show the danger zoom.</span></div>
+   </li>
+ </ul>
+
+<footer class="page-footer #1976d2 blue darken-2">
+  <div class="container">
+    <div class="row">
+      <div class="col s9">
+        <h5 class="white-text">Private, Accurate, Secured</h5>
+        <p class="grey-text text-lighten-4">We find the most accurate traffic information to help you avoid traffice incidents</p>
+      </div>
+      <div class="col s3">
+        <ul>
+          <li><a class="white-text" href="home.html">Home Page</a></li>
+          <li><a class="white-text" href="order.html">Traffic Incidents</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-copyright">
+    <div class="container">
+    <p>@ Kevin Zheng</p>
+    </div>
+  </div>
+</footer>
 
 <script>
 //var GOOGLE_MAP_KEY = localStorage.APIKey;
@@ -254,11 +287,6 @@ window.onload = loadScript;
 <!--
 <script async defer src = `https://maps.googleapis.com/maps/api/js?key=${APIKey}&callback=initMap`></script>  -->
 
-<!-- this is through local file -->
-<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-<script type="text/javascript" src="js/materialize.min.js"></script> -->
-
-<!-- this is CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
 </script>
 
