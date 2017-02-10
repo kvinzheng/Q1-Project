@@ -135,7 +135,7 @@ form.addEventListener("submit", function(e){
         '</div>'+
         '<h4 id="firstHeading" class="firstHeading">Car Incident</h4>'+
         '<div id="bodyContent">'+
-        '<b> The incident occured at : </b>'+ crimeObj.address + '<p><b> The kind of car accident is </b>' + crimeObj.descript + '</p>' + '<p><b>The kind of accident is </b>' + crimeObj.resolution + '.</p>' + '<p><b> the category is </b>'+ crimeObj.category + '</p>' +
+        '<b> The incident occured at : </b>'+ crimeObj.address + '<p><b> The kind of car accident is </b>' + crimeObj.descript + '</p>' + '<p><b> After the polices investigated, the result is </b>' + crimeObj.resolution + '.</p>' + '<p><b> the category is </b>'+ crimeObj.category + '</p>' +
         '</div>'+
         '</div>';
 
