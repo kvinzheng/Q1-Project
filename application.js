@@ -51,7 +51,7 @@ form.addEventListener("submit", function(e){
   let dayofweekSelector = document.getElementById("selection-day");
   let sfdistrictSelector = document.getElementById("selection-district");
   let yearSelector = document.getElementById("selection-year")
-  let resolutionSelector = document.getElementById("selection-resolution")
+  let resolutionSelector = document.getElementById("selection-resolution");
 
   getData()
   .then(function(incidents) {
@@ -138,8 +138,11 @@ form.addEventListener("submit", function(e){
       '</div>';
 
       marker.addListener('click', function(){
+        //if the the infowindow (or the info box has information), then
+        // I would close that box and then I would assignment a new box
+        //the old one get disappear
         if(infowindow){
-          console.log("where are in the window" + infowindow);
+          console.log(infowindow);
           infowindow.close();
         }
         infowindow = new google.maps.InfoWindow({
